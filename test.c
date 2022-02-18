@@ -16,6 +16,9 @@ void laes_alle_kampe_fra_fil(kamp kampe[], FILE *fil);
 
 
 int main (void) {
+
+    printf("Hej Rasmus!");
+
     FILE *fil = fopen("kampe-2020-2021.txt", "r");
     if (fil == NULL){
         printf("Fil kunne ikke åbnes");
