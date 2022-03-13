@@ -7,53 +7,173 @@
 #include <stdlib.h>
 #include <math.h>
 
-
-void prompt(char name[], double *watt, double *hours, int *days, double *price);
-void calculations(double watt, double hours, int days, double price, double *kwh, double *price_per_year);
-void result(char name[], double kwh, double price_per_year);
-
-int main(void) 
+typedef struct
 {
     char name[50];
+    double price;
     double watt; 
     double hours;
     int days;
-    double price;
-    double kwh;
-    double price_per_year;
+    double el_price;
+} Device;
 
-prompt(name, &watt, &hours, &days, &price);
+int main(void) {
 
-calculations(watt, hours, days, price, &kwh, &price_per_year);
-
-result(name, kwh, price_per_year);
-
-return 0;
-
-
+    Device devices[];
+    prompt();
+    return 0;
 }
-void prompt(char name[], double *watt, double *hours, int *days, double *price) 
+
+void prompt() {
+    int n;
+
+    printf("\n\nWhat type of device would you like to estimate?");
+    printf("\nType 1 for lightning");
+    printf("\nType 2 for heating");
+    printf("\nType 3 for air condition");
+    printf("\nType 4 for smart sockets");
+    printf("\nType 5 for security devices");
+    printf("\nType 6 for curtains and blinds");
+    printf("\nType 7 for other devices that uses a power outlet");
+    
+    scanf("%d", &n);
+
+    switch(n) {
+    case '1':
+        int k;
+        printf("\nType 1 for spotlights or type 2 for light bulbs");
+        scanf("%d", &k);
+        if (k == 1) {
+            prompt_2();
+            compare();
+        }
+        else if (k == 2) {
+            prompt_2();
+            compare();
+        }
+        break;
+    case '2':
+        int h; 
+        printf("\nType 1 for electric floor heating and radiators, or type 2 for other heating systems");
+        scanf("%d", &k);
+        if (k == 1) {
+            prompt_2();
+            compare();
+        }
+        else if (k == 2) {
+            prompt_2();
+            compare();
+        }
+        break;
+    case '3':
+        prompt_2();
+        compare();
+        break;
+    case '4':
+        prompt_2();
+        compare();
+        break;
+    case '5':
+        prompt_2();
+        compare();
+        break;
+    case '6':
+        int w;
+        printf("\nType 1 for curtains or type 2 for blinds");
+        scanf("%d", &w);
+        if (k == 1) {
+            prompt_2();
+            comapre();
+        }
+        else if (k == 2) {
+            prompt_2();
+            compare();
+        }
+        break;
+    case '7':
+        printf("\nChose one category to compare with");
+        printf("\nType 1 for computer\nType 2 for fridge\nType 3 for flat-screen\nType 4 to add new device");
+        scanf("%d", &k);
+        if (k == 1) {
+            prompt_2();
+            compare();
+        }
+        else if (k == 2) {
+            prompt_2();
+            compare();
+        }
+        else if (k == 3) {
+            prompt_2();
+            compare();
+        }
+        else if (k == 4) {
+            add_new_device();
+            compare();
+        }
+        break;
+    return 0;
+}
+
+
+
+void prompt_2(Device devices[])
 {
-    printf("What is the name of the device?\n");
-    scanf(" %s", name);
-    printf("\nWhat is the wattage?\n");
-    scanf(" %lf", watt);
-    printf("\nHow many hours is the devices used per day?\n");
-    scanf(" %lf", hours);
-    printf("\nHow many days is it used per year?\n");
-    scanf(" %d", days);
-    printf("\nWhat is the price per kwh?\n");
-    scanf(" %lf", price);
+    Device d; 
+        printf("What is the name of the device?\n");
+        scanf(" %s", d.name);
+        printf("How much does the device cost? (DKK)\n")
+        scanf("%lf", &(d.price)
+        printf("\nWhat is the wattage?\n");
+        scanf(" %lf", &(d.watt));
+        printf("\nHow many hours is the devices used per day?\n");
+        scanf(" %lf", &(d.hours));
+        printf("\nHow many days is it used per year?\n");
+        scanf(" %d", &(d.days));
+        printf("\nWhat is the price per kwh?\n");
+        scanf(" %lf", &(d.el_price));
+    
 }
 
-void calculations(double watt, double hours, int days, double price, double *kwh, double *price_per_year) {
-
-    *kwh = ((watt * hours * days) / 1000);
-    *price_per_year = ((*kwh) * price); 
+void calculations(Device devices[]) {
+    d.kwh = 0,
+    d.price_per_year = 0;
+        *d.kwh = ((d.watt * d.hours * d.days) / 1000);
+        *d.price_per_year = ((*d.kwh) * d.el_price);
+    }
 }
 
-void result(char name[], double kwh, double price_per_year) 
+int compare(const void *a, const void *b) {
+    Device *S_device = (Device *) a;
+    Device *SnS_device = (Device *) b;
+
+    double diff = S_device->price_per_year - SnS_device->price_per_year; // pris forskell
+
+    return diff;
+}
+int profit(double diff) {
+    double plus;  
+    if (diff < 0) {
+        plus = (S_device.total_price / SnS_device.total_price)
+    }
+    return plus;
+    
+}
+
+void overview(Device devices[], double diff) 
 {
-    printf("\n%s is estimated to use %lf kWh, which gives a total cost of %lf per year\n", name, kwh, price_per_year);
+    if (diff < 0) { 
+        printf("Your smart device %c is estimated to be more energy efficient compared to a standard non-smart device\n", d.name);
+        printf("You are estimated to save %lf DKK every year\n", diff);
+        printf("If the price of the device is included in the calculations, you are estimated to go in plus after %lf years\n", plus);
+    }
+    else if (diff > 0) {
+        printf("Your smart device %c is estimated to be less energy efficient compared to a standard non-smart device\n", d.name);
+        printf("You are estimated to loose %lf DKK every year\n", diff);
+    }
+    else if(diff == 0) {
+        printf("Your smart device %c is estimated to use the same amount of energy as standard non-smart device\n", d.name);
+    }
 }
+
+
 
